@@ -21,6 +21,21 @@
             padding: 20px;
             background-color: black;
         }
+
+        .signout-btn {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-right: auto; 
+        }
+
+        .signout-btn:hover {
+            background-color: #ff4444; 
+            color: white;
+        }
         
         .dropdown {
             position: relative;
@@ -163,6 +178,8 @@
     <!-- Original Content (hidden until authenticated) -->
     <div class="header">
         <div class="dropdown">
+            <button class="signout-btn" onclick="logout()">SIGN OUT</button>
+            
             <button class="dropbtn">MENU</button>
             <div class="dropdown-content">
                 <a href="https://de-ravendell.github.io/navigator">NAVIGATOR</a>
