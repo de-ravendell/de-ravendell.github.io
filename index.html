@@ -65,6 +65,17 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+
+        #signout-btn {
+            border-top: 1px solid #444;
+            margin-top: 5px;
+            padding-top: 12px;
+        }
+        
+        #signout-btn:hover {
+            background-color: #ff0000 !important;
+            color: white !important;
+        }
         
         .main-content {
             flex: 1;
@@ -177,6 +188,7 @@
                 <a href="https://de-ravendell.github.io/2048">2048</a>
                 <a href="https://de-ravendell.github.io/gomoku">GOMOKU</a>
                 <a href="https://de-ravendell.github.io/wordle">WORDLE</a>
+                <a href="#" id="signout-btn" onclick="logout()">SIGN OUT</a>
             </div>
         </div>
     </div>
