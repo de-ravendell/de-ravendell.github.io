@@ -3,14 +3,6 @@ document.addEventListener('DOMContentLoaded', async function() {
     await checkAuthStatus();
 });
 
-async function sha256(message) {
-    const msgBuffer = new TextEncoder().encode(message);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    return hashHex;
-}
-
 async function checkPassword() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -24,12 +16,10 @@ async function checkPassword() {
         const authData = await response.text();
         const validLogins = authData.split('\n').filter(line => line.trim() !== '');
         
-        const inputPasswordHash = await sha256(password);
-        
         // Check credentials
         for (const login of validLogins) {
-            const [validUser, validPassHash] = login.trim().split(':');
-            if (username === validUser && inputPasswordHash === validPassHash) {
+            const [validUser, validPass] = login.trim().split(':');
+            if (username === validUser && password === validPass) {
                 // Store authentication status
                 sessionStorage.setItem('authenticated', 'true');
                 document.getElementById('auth-overlay').style.display = 'none';
