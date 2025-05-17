@@ -149,8 +149,8 @@
     <div id="auth-overlay">
         <div class="auth-container">
             <h2>Authentication Required</h2>
-            <input type="text" id="username" placeholder="Username" style="align-items: center">
-            <input type="password" id="password" placeholder="Password" style="align-items: center">
+            <input type="text" id="username" placeholder="Username" style="text-align: center">
+            <input type="password" id="password" placeholder="Password" style="text-align: center">
             <button onclick="checkPassword()">Login</button>
             <p id="error-msg">Invalid username or password</p>
         </div>
@@ -182,5 +182,11 @@
     </div>
 
     <script src="auth.js"></script>
+    
+    <script>
+    if(window.location.pathname.includes('auth_data.txt')) {
+        window.location.href = '/'; 
+    }
+    </script>
 </body>
 </html>
