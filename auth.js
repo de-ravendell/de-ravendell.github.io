@@ -18,7 +18,7 @@ async function checkPassword() {
     
     try {
         // Fetch hashed password file
-        const response = await fetch('auth_data_hash.txt');
+        const response = await fetch('auth_data.txt');
         if (!response.ok) throw new Error('Failed to load authentication data');
         
         const authData = await response.text();
