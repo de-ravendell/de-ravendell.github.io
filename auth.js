@@ -27,7 +27,7 @@ async function checkPassword() {
         
         const authData = await response.text();
         const validLogins = authData.split('\n').filter(line => line.trim() !== '');
-        const pass = sha256(password);
+        const pass = await sha256(password);
         
         // Check credentials
         for (const login of validLogins) {
