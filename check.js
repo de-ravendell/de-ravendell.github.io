@@ -5,5 +5,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 async function check() {
     if (sessionStorage.getItem('authenticated') !== 'true') {
         window.location.replace("https://de-ravendell.github.io");
+    } else {
+        const overlay = document.getItemById('overlay');
+        overlay.style.display = 'none';
     }
 }
