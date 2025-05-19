@@ -51,8 +51,8 @@ async function checkPassword() {
 }
 
 async function checkAuthStatus() {
-    if (sessionStorage.getItem('authenticated') !== 'true') {
-        document.getElementById('auth-overlay').style.display = 'flex';
+    if (sessionStorage.getItem('authenticated') === 'true') {
+        document.getElementById('auth-overlay').style.display = 'none';
     }
 }
 
