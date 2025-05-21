@@ -282,7 +282,7 @@
                 fadeOutTimeout = setTimeout(() => {
                     if (!isAnimating) return; 
                     fadeOutAll();
-                }, images.length * 500 + 1000);
+                }, images.length * 500 + 2000);
             }
 
             function fadeOutAll() {
@@ -294,7 +294,7 @@
                     if (!isAnimating) return; 
                     isAnimating = false; 
                     setPage();
-                }, 1000);
+                }, 2000);
             }
 
             function stopAllAnimations() {
