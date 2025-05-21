@@ -100,6 +100,49 @@
             z-index: -1;
         }
 
+        .img-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+	    z-index: 1001;
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+        }
+
+        .skip-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            z-index: 1002;
+        }
+
+        .skip-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
         /* Auth Overlay Styles */
         #auth-overlay {
             position: fixed;
@@ -164,6 +207,14 @@
     </style>
 </head>
 <body>
+    <div class="img-container" id="ani">
+        <button class="skip-btn" id="skipBtn">skip</button>
+
+        <div class="image-wrapper" id="hell">
+            <img src="https://de-ravendell.github.io/hell.jpg" alt=" ">
+        </div>
+    </div>
+    
     <!-- Authentication Overlay -->
     <div id="auth-overlay">
         <div class="auth-container">
@@ -205,8 +256,71 @@
     <script src="auth.js"></script>
     
     <script>
-    if(window.location.pathname.includes('auth_data.txt')) {
-        window.location.href = '/'; 
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = [
+                document.getElementById('hell')
+            ];
+
+            const skipBtn = document.getElementById('skipBtn');
+            let animationTimeouts = []; 
+            let fadeOutTimeout = null; 
+            let isAnimating = true; 
+
+            function showImages() {
+                images.forEach((img, index) => {
+                    const timeoutId = setTimeout(() => {
+                        if (!isAnimating) return; 
+                        img.style.opacity = '1';
+                        img.style.transform = 'translateY(0)';
+                    }, index * 500);
+                    animationTimeouts.push(timeoutId);
+                });
+
+                fadeOutTimeout = setTimeout(() => {
+                    if (!isAnimating) return; 
+                    fadeOutAll();
+                }, images.length * 500 + 1000);
+            }
+
+            function fadeOutAll() {
+                images.forEach(img => {
+                    img.style.opacity = '0';
+                });
+
+                setTimeout(() => {
+                    if (!isAnimating) return; 
+                    isAnimating = false; 
+                    setPage();
+                }, 1000);
+            }
+
+            function stopAllAnimations() {
+                isAnimating = false; 
+
+                animationTimeouts.forEach(timeout => clearTimeout(timeout));
+                if (fadeOutTimeout) clearTimeout(fadeOutTimeout);
+
+                images.forEach(img => {
+                    img.style.transition = 'none'; 
+                    img.style.opacity = '0';
+                });
+
+                setPage();
+            }
+
+            function setPage() {
+                const ani = document.getElementById('ani');
+                ani.style.display = block;
+            }
+
+            skipBtn.addEventListener('click', stopAllAnimations);
+
+            showImages();
+        });
+    </script>
+</body>
+</html>
+
     }
     </script>
 </body>
