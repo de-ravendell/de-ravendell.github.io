@@ -116,8 +116,9 @@
 
         .image-wrapper {
             position: relative;
-            height: 80%;
-	    width: auto;
+            max-height: 100vh;
+	    max-width: 100vh;
+	    object-fit: contain;
             opacity: 0;
             transition: opacity 1s ease;
         }
