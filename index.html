@@ -102,8 +102,9 @@
 
         .img-container {
             position: relative;
-            width: 100vw;
-            height: 100vh;
+	    background-color: black;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -310,7 +311,7 @@
 
             function setPage() {
                 const ani = document.getElementById('ani');
-                ani.style.display = block;
+                ani.style.display = 'block';
             }
 
             skipBtn.addEventListener('click', stopAllAnimations);
