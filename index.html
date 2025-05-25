@@ -15,19 +15,19 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        
+
         .header {
             display: flex;
             justify-content: flex-end;
             padding: 20px;
             background-color: black;
         }
-        
+
         .dropdown {
             position: relative;
             display: inline-block;
         }
-        
+
         .dropbtn {
             background-color: black;
             color: white;
@@ -36,7 +36,7 @@
             border: none;
             cursor: pointer;
         }
-        
+
         .dropdown-content {
             display: none;
             position: absolute;
@@ -51,39 +51,39 @@
             scrollbar-width: thin; 
             scrollbar-color: #777777 black; 
         }
-        
+
         .dropdown-content a {
             color: white;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
         }
-        
+
         .dropdown-content a:hover {
             background-color: #777777;
         }
-        
+
         .dropdown:hover .dropdown-content {
             display: block;
         }
-
         #signout-btn {
             border-top: 1px solid #444;
             margin-top: 5px;
             padding-top: 12px;
         }
-        
+
         #signout-btn:hover {
             background-color: #ff0000 !important;
             color: white !important;
         }
-        
+
         .main-content {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 2em;
+            flex-direction: column; /* 添加垂直排列 */
         }
 
         .main-content::before {
@@ -101,25 +101,60 @@
             z-index: -1;
         }
 
+        /* 新增搜索栏样式 */
+        .search-container {
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: center;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .search-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #search-result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-radius: 4px;
+            word-break: break-all;
+            display: none;
+        }
+
         .img-container {
             position: fixed;
-	    top: 0;
-	    left: 0;
-	    background-color: black;
+            top: 0;
+            left: 0;
+            background-color: black;
             width: 100%;
             height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-	    z-index: 1001;
+            z-index: 1001;
         }
 
         .image-wrapper {
             position: relative;
             max-height: 100vh;
-	    max-width: 100vh;
-	    object-fit: contain;
+            max-width: 100vh;
+            object-fit: contain;
             opacity: 0;
             transition: opacity 1s ease;
         }
@@ -214,12 +249,11 @@
 <body>
     <div class="img-container" id="ani">
         <button class="skip-btn" id="skipBtn">skip</button>
-
         <div class="image-wrapper" id="hell">
             <img src="https://de-ravendell.github.io/hell.jpg" alt=" ">
         </div>
     </div>
-    
+
     <!-- Authentication Overlay -->
     <div id="auth-overlay">
         <div class="auth-container">
@@ -237,14 +271,13 @@
         <div class="dropdown">
             <button class="dropbtn">MENU</button>
             <div class="dropdown-content">
-                <a href="https://de-ravendell.github.io/navigator">NAVIGATOR</a>
                 <a href="https://www.merriam-webster.com">MERRIAM</a>
                 <a href="https://chat.deepseek.com">DEEPSEEK</a>
                 <a href="https://www.doubao.com/chat">DOUBAO</a>
                 <a href="https://outlook.live.com">OUTLOOK</a>
                 <a href="https://github.com">GITHUB</a>
-		<a href="https://mdxnotes.com/dashboard/posts">MDXNOTES</a>
-		<a href="https://de-ravendell.github.io/read">READER</a>
+                <a href="https://mdxnotes.com/dashboard/posts">MDXNOTES</a>
+                <a href="https://de-ravendell.github.io/read">READER</a>
                 <a href="https://richup.io">RICHUP</a>
                 <a href="https://de-ravendell.github.io/richup">RICHUP?</a>
                 <a href="https://game.hullqin.cn">HULLQIN</a>
@@ -255,19 +288,29 @@
             </div>
         </div>
     </div>
-    
+
     <div class="main-content">
         <img src="signature.png" alt=" " width="300">
+        
+        <!-- 新增搜索栏 -->
+        <div class="search-container">
+            <h2>NAVIGATOR</h2>
+            <input type="text" id="url" class="search-input" placeholder="Enter URL or search terms" required>
+            <button class="search-button" onclick="navigateToUrl()">GO</button>
+            <div id="search-result" class="search-result">
+                <p>Invalid URL. Please try again.</p>
+            </div>
+        </div>
     </div>
 
     <script src="auth.js"></script>
-    
+
     <script>
+        // 原有动画脚本
         document.addEventListener('DOMContentLoaded', function() {
             const images = [
                 document.getElementById('hell')
             ];
-
             const skipBtn = document.getElementById('skipBtn');
             let animationTimeouts = []; 
             let fadeOutTimeout = null; 
@@ -282,7 +325,6 @@
                     }, index * 500);
                     animationTimeouts.push(timeoutId);
                 });
-
                 fadeOutTimeout = setTimeout(() => {
                     if (!isAnimating) return; 
                     fadeOutAll();
@@ -293,7 +335,6 @@
                 images.forEach(img => {
                     img.style.opacity = '0';
                 });
-
                 setTimeout(() => {
                     if (!isAnimating) return; 
                     isAnimating = false; 
@@ -303,15 +344,12 @@
 
             function stopAllAnimations() {
                 isAnimating = false; 
-
                 animationTimeouts.forEach(timeout => clearTimeout(timeout));
                 if (fadeOutTimeout) clearTimeout(fadeOutTimeout);
-
                 images.forEach(img => {
                     img.style.transition = 'none'; 
                     img.style.opacity = '0';
                 });
-
                 setPage();
             }
 
@@ -321,8 +359,51 @@
             }
 
             skipBtn.addEventListener('click', stopAllAnimations);
-
             showImages();
+        });
+
+        // 新增导航功能脚本
+        function navigateToUrl() {
+            let input = document.getElementById('url').value.trim();
+            
+            if (!input) {
+                const url = `https://www.bing.com`;
+                window.open(url, '_blank');
+                return;
+            }
+            
+            const domainPattern = /\.(com|net|org|io|gov|edu|co|uk|de|fr|info|biz|xyz|me|tv|cc|ca|au|nz|jp|cn|in|br|ru|us|mx|es|it|ch|se|nl|be|at|dk|fi|no|pl|pt|ro|tr|gr|hu|sk|cz|sg|hk|my|id|ph|vn|th|kr|ae|sa|il|ir|za|ar|cl|pe|ms|one|dev|co\.uk|org\.uk|ac\.uk|gov\.uk)(\/|$|\?|#)/i;
+            
+            try {
+                if (input.startsWith('http://') || input.startsWith('https://')) {
+                    new URL(input);
+                    window.open(input, '_blank');
+                    return;
+                }
+                
+                if (domainPattern.test(input) && !input.includes(" ")) {
+                    if (!input.startsWith('http://') && !input.startsWith('https://')) {
+                        input = 'https://' + input;
+                    }
+                    new URL(input);
+                    window.open(input, '_blank');
+                    return;
+                }
+                
+                const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
+                window.open(searchUrl, '_blank');
+                
+            } catch (e) {
+                const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
+                window.open(searchUrl, '_blank');
+                document.getElementById('search-result').style.display = 'block';
+            }
+        }
+
+        document.getElementById('url').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                navigateToUrl();
+            }
         });
     </script>
 </body>
