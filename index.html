@@ -288,7 +288,6 @@
                 <a href="https://mdxnotes.com/dashboard/posts">MDXNOTES</a>
                 <a href="https://de-ravendell.github.io/read">READER</a>
                 <a href="#" onclick="richup()">RICHUP</a>
-                <a href="https://de-ravendell.github.io/richup">RICHUP?</a>
                 <a href="https://game.hullqin.cn">HULLQIN</a>
                 <a href="https://de-ravendell.github.io/2048">2048</a>
                 <a href="https://de-ravendell.github.io/gomoku">GOMOKU</a>
@@ -366,9 +365,9 @@
 
         function richup() {
             const roomIndex = prompt("Your room index?");
-            if (roomIndex === null) {
+            if (roomIndex === "") {
                 window.location.href = "https://richup.io";
-            } else {
+            } else if(roomIndex !== null) {
                 window.location.href = `https://richup.io/room/${roomIndex}`;
             }
         }
