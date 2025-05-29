@@ -95,6 +95,7 @@
         .dropdown:hover .dropdown-content {
             display: block;
         }
+
         #signout-btn {
             border-top: 1px solid #444;
             margin-top: 5px;
@@ -192,7 +193,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 1);
+            background-color: rgba(0, 0, 0, 0.5);
             display: none;
             justify-content: center;
             align-items: center;
@@ -371,6 +372,7 @@
 
     <div id="prompt">
         <div class="prompt-container">
+            <button id="cancel-btn" onclick="cancel()">x</button>
             <h2>Please tell me your room index.</h2>
             <input type="text" id="roomIndex" placeholder="Room index" style="width: 80%">
             <button onclick="enterRoom()">ENTER ROOM</button>
@@ -449,6 +451,11 @@
             } else {
                 window.location.href = `https://richup.io/room/${index}`;
             }
+        }
+
+        function cancel() {
+            document.getElementById('roomIndex').value = '';
+            document.getElementById('prompt').style.display = 'none';
         }
 
         function navigateToUrl() {
