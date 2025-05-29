@@ -22,7 +22,7 @@ async function checkPassword() {
     
     try {
         // Fetch hashed password file
-        const response = await fetch('auth_data.txt');
+        const response = await fetch('https://de-ravendell.github.io/auth_data.txt');
         if (!response.ok) throw new Error('Failed to load authentication data');
         
         const authData = await response.text();
