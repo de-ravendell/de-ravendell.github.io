@@ -117,7 +117,7 @@
 
         .main-content::before {
             content: " ";
-            background-image: url('minette.png');
+            background-image: url('https://de-ravendell.github.io/minette.png');
             background-position: center center;
             background-repeat: no-repeat;
             background-size: cover;
@@ -186,6 +186,71 @@
             background-color: rgba(0, 0, 0, 0.7);
         }
 
+        #prompt {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 1);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .prompt-container {
+            position: relative;
+            background-color: #222;
+            padding: 30px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            color: white;
+        }
+
+        .prompt-container h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        .prompt-container input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #444;
+            background-color: #333;
+            color: white;
+            border-radius: 4px;
+        }
+
+        .prompt-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .prompt-container button:hover {
+            background-color: #45a049;
+        }
+
+        #cancel-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 10px;
+            color: white;
+            background: none;
+        }
+
+        #cancel-btn:hover {
+            background-color: #ff0000 !important;
+        }
+
         /* Auth Overlay Styles */
         #auth-overlay {
             position: fixed;
@@ -215,7 +280,7 @@
         }
 
         .auth-container input {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #444;
@@ -298,16 +363,23 @@
     </div>
 
     <div class="main-content">
-        <img src="signature.png" alt=" " width="300">
+        <img src="https://de-ravendell.github.io/signature.png" alt=" " width="300">
         <div id="search-result" class="search-result">
             <p>Invalid URL. Please try again.</p>
         </div>
     </div>
 
-    <script src="auth.js"></script>
+    <div id="prompt">
+        <div class="prompt-container">
+            <h2>Please tell me your room index.</h2>
+            <input type="text" id="roomIndex" placeholder="Room index" style="width: 80%">
+            <button onclick="enterRoom()">ENTER ROOM</button>
+        </div>
+    </div>
+
+    <script src="https://de-ravendell.github.io/auth.js"></script>
 
     <script>
-        // 原有动画脚本
         document.addEventListener('DOMContentLoaded', function() {
             const images = [
                 document.getElementById('hell')
@@ -364,15 +436,21 @@
         });
 
         function richup() {
-            const roomIndex = prompt("Your room index?");
-            if (roomIndex === "") {
+            const prompt = document.getElementById("prompt");
+            prompt.style.display = 'flex';
+        }
+
+        function enterRoom() { 
+            let index = document.getElementById('roomIndex').value.trim();
+
+            document.getElementById("prompt").style.display = 'none';
+            if (!index) {
                 window.location.href = "https://richup.io";
-            } else if(roomIndex !== null) {
-                window.location.href = `https://richup.io/room/${roomIndex}`;
+            } else {
+                window.location.href = `https://richup.io/room/${index}`;
             }
         }
 
-        // 新增导航功能脚本
         function navigateToUrl() {
             let input = document.getElementById('url').value.trim();
             
