@@ -244,14 +244,6 @@
             flex: 1;
         }
 
-        .prompt-container button:hover {
-            background-color: #45a049;
-        }
-
-        #cancel-btn {
-            background-color: #ff0000 !important;
-        }
-
         /* Auth Overlay Styles */
         #auth-overlay {
             position: fixed;
@@ -313,6 +305,57 @@
             margin-top: 10px;
             display: none;
         }
+
+        #sgt {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .sgt-container {
+            position: relative;
+            background-color: #222;
+            padding: 30px;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+            color: white;
+        }
+
+        .sgt-container h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+
+        .sgt-btn {
+            display: flex;
+            justify-content: center;
+            padding: 0 0 0 0;
+            gap: 12px;
+        }
+            
+
+        .sgt-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            flex: 1;
+        }
+
+        #signout {
+            background-color: ff0000 !important;
+        }
     </style>
 </head>
 <body>
@@ -358,7 +401,7 @@
                 <a href="https://de-ravendell.github.io/2048">2048</a>
                 <a href="https://de-ravendell.github.io/gomoku">GOMOKU</a>
                 <a href="https://de-ravendell.github.io/wordle">WORDLE</a>
-                <a href="#" id="signout-btn" onclick="logout()">SIGN OUT</a>
+                <a href="#" id="signout-btn" onclick="signout()">SIGN OUT</a>
             </div>
         </div>
     </div>
@@ -375,12 +418,23 @@
             <h2>Please tell me your room index.</h2>
             <input type="text" id="roomIndex" placeholder="Room index" style="width: 80%">
             <div class="prompt-btn">
-                <button id="cancel-btn" onclick="cancel()">CANCEL</button>
+                <button onclick="cancel()">CANCEL</button>
                 <button onclick="enterRoom()">ENTER ROOM</button>
             </div>
         </div>
     </div>
 
+    <div id="sgt">
+        <div class="sgt-container">
+            <h2>Are you sure to sign out?</h2>
+            <p>This can not be undone. </p>
+            <div class="prompt-btn">
+                <button onclick="cancelsgt()">CANCEL</button>
+                <button id="signout" onclick="logout()">SIGN OUT</button>
+            </div>
+        </div>
+    </div>
+    
     <script src="https://de-ravendell.github.io/auth.js"></script>
 
     <script>
@@ -458,6 +512,14 @@
         function cancel() {
             document.getElementById('roomIndex').value = '';
             document.getElementById('prompt').style.display = 'none';
+        }
+
+        function signout() {
+            document.getElementById("sgt").style.display = 'flex';
+        }
+
+        function cancelsgt() {
+            document.getElementById("sgt").style.display = 'none';
         }
 
         function navigateToUrl() {
