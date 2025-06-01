@@ -41,6 +41,7 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             width: 200px;
+            flex: 1;
         }
 
         .search-button {
@@ -217,6 +218,7 @@
 
         .prompt-container input {
             width: 80%;
+            flex: 1;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #444;
@@ -265,6 +267,7 @@
             width: 300px;
             text-align: center;
             color: white;
+            display: flex;
         }
 
         .auth-container h2 {
@@ -280,6 +283,7 @@
             background-color: #333;
             color: white;
             border-radius: 4px;
+            flex: 1;
         }
 
         .auth-container button {
@@ -290,6 +294,7 @@
             border-radius: 4px;
             cursor: pointer;
             margin-top: 10px;
+            flex: 1;
         }
 
         .auth-container button:hover {
@@ -527,7 +532,7 @@
             
             if (!input) {
                 const url = `https://www.bing.com`;
-                window.open(url, '_blank');
+                window.location.href = url;
                 return;
             }
             
@@ -536,7 +541,7 @@
             try {
                 if (input.startsWith('http://') || input.startsWith('https://')) {
                     new URL(input);
-                    window.open(input, '_blank');
+                    window.location.href = input;
                     return;
                 }
                 
@@ -545,12 +550,12 @@
                         input = 'https://' + input;
                     }
                     new URL(input);
-                    window.open(input, '_blank');
+                    window.location.href = input;
                     return;
                 }
                 
                 const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
-                window.open(searchUrl, '_blank');
+                window.location.href = searchUrl;
                 
             } catch (e) {
                 const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
