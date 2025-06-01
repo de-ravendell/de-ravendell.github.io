@@ -16,6 +16,12 @@
             min-height: 100vh;
         }
 
+        .flexer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -34,6 +40,7 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            flex: 1;
         }
 
         .search-input {
@@ -267,6 +274,7 @@
             width: 300px;
             text-align: center;
             color: white;
+            display: flex;
         }
 
         .auth-container h2 {
@@ -375,9 +383,9 @@
         <div class="auth-container">
             <h2>Authentication Required</h2>
             <p id="tips">For any questions, please email ravendell22@outlook.com for help.</p>
-            <input type="text" id="username" placeholder="Username" style="width: 80%">
-            <input type="password" id="password" placeholder="Password" style="width: 80%">
-            <button onclick="checkPassword()">Login</button>
+            <div class="flexer"><input type="text" id="username" placeholder="Username" style="width: 80%"></div>
+            <div class="flexer"><input type="password" id="password" placeholder="Password" style="width: 80%"></div>
+            <div class="flexer"><button onclick="checkPassword()">Login</button></div>
             <p id="error-msg">Invalid username or password</p>
         </div>
     </div>
@@ -420,7 +428,9 @@
     <div id="prompt">
         <div class="prompt-container">
             <h2>Please tell me your room index.</h2>
-            <input type="text" id="roomIndex" placeholder="Room index" style="width: 80%">
+            <div class="flexer">
+                <input type="text" id="roomIndex" placeholder="Room index" style="width: 80%">
+            </div>
             <div class="prompt-btn">
                 <button onclick="cancel()">CANCEL</button>
                 <button onclick="enterRoom()">ENTER ROOM</button>
