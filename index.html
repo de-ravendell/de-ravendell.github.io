@@ -629,8 +629,8 @@
         }
 
         function exitUrl() {
-            document.getElementById('preview').textContent = 'EXIT PREVIEW';
-            document.getElementById('preview').onclick = "exitUrl()";
+            document.getElementById('preview').textContent = 'PREVIEW';
+            document.getElementById('preview').onclick = "previewUrl()";
             const ifr = document.getElementById('ifr');
             ifr.src = "https://bing.com/search?q=";
             ifr.style.display = none;
