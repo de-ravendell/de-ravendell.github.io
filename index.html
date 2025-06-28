@@ -401,6 +401,7 @@
         <div class="header-left">
             <div class="search-container">
                 <input type="text" id="url" class="search-input" placeholder="Enter URL or search terms">
+                <button class="search-button" id="preview" onclick="previewUrl()">PREVIEW</button>
                 <button class="search-button" onclick="navigateToUrl()">GO</button>
             </div>
         </div>
@@ -427,6 +428,7 @@
     </div>
 
     <div class="main-content">
+        <iframe src="https://bing.com/search?q=" style="flex-grow: 1; display: none" id="ifr">
         <img src="https://de-ravendell.github.io/signature.png" alt=" " width="300">
         <div id="search-result" class="search-result">
             <p>Invalid URL. Please try again.</p>
@@ -460,6 +462,8 @@
     <script src="https://de-ravendell.github.io/auth.js"></script>
 
     <script>
+        const domainPattern = /\.(com|net|org|io|gov|edu|co|uk|de|fr|info|biz|xyz|me|tv|cc|ca|au|nz|jp|cn|in|br|ru|us|mx|es|it|ch|se|nl|be|at|dk|fi|no|pl|pt|ro|tr|gr|hu|sk|cz|sg|hk|my|id|ph|vn|th|kr|ae|sa|il|ir|za|ar|cl|pe|ms|one|dev|co\.uk|org\.uk|ac\.uk|gov\.uk)(\/|$|\?|#)/i;
+
         document.addEventListener('DOMContentLoaded', function() {
             const images = [
                 document.getElementById('hell')
@@ -553,8 +557,6 @@
                 return;
             }
             
-            const domainPattern = /\.(com|net|org|io|gov|edu|co|uk|de|fr|info|biz|xyz|me|tv|cc|ca|au|nz|jp|cn|in|br|ru|us|mx|es|it|ch|se|nl|be|at|dk|fi|no|pl|pt|ro|tr|gr|hu|sk|cz|sg|hk|my|id|ph|vn|th|kr|ae|sa|il|ir|za|ar|cl|pe|ms|one|dev|co\.uk|org\.uk|ac\.uk|gov\.uk)(\/|$|\?|#)/i;
-            
             try {
                 if (input.startsWith('http://') || input.startsWith('https://')) {
                     new URL(input);
@@ -576,8 +578,7 @@
                 
             } catch (e) {
                 const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
-                window.open(searchUrl, '_blank');
-                document.getElementById('search-result').style.display = 'block';
+                window.location.href = searchUrl;
             }
         }
 
@@ -586,6 +587,54 @@
                 navigateToUrl();
             }
         });
+
+        function previewUrl() {
+            document.getElementById('preview').textContent = 'EXIT PREVIEW';
+            document.getElementById('preview').onclick = "exitUrl()";
+            let input = document.getElementById('url').value.trim();
+            const ifr = document.getElementById('ifr');
+
+            if (!input) {
+                const url = `https://www.bing.com`;
+                ifr.style.href = url;
+                ifr.style.display = flex;
+                return;
+            }
+            
+            try {
+                if (input.startsWith('http://') || input.startsWith('https://')) {
+                    new URL(input);
+                    ifr.src = input;
+                    ifr.style.display = flex;
+                    return;
+                }
+                
+                if (domainPattern.test(input) && !input.includes(" ")) {
+                    if (!input.startsWith('http://') && !input.startsWith('https://')) {
+                        input = 'https://' + input;
+                    }
+                    new URL(input);
+                    ifr.src = input;
+                    ifr.style.display = flex;
+                    return;
+                }
+                
+                ifr.src = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
+                ifr.style.display = flex;
+                
+            } catch (e) {
+                ifr.src = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
+                ifr.style.display = flex;
+            }
+        }
+
+        function exitUrl() {
+            document.getElementById('preview').textContent = 'EXIT PREVIEW';
+            document.getElementById('preview').onclick = "exitUrl()";
+            const ifr = document.getElementById('ifr');
+            ifr.src = "https://bing.com/search?q=";
+            ifr.style.display = none;
+        }
     </script>
 </body>
 </html>
