@@ -31,6 +31,6 @@ async function check() {
             console.error('Authentication check error:', error);
         }
         // If credentials are invalid, redirect to login page
-        window.location.replace("https://de-ravendell.github.io");
+        window.location.replace("https://ravndl.infy.uk/");
     }
 }
