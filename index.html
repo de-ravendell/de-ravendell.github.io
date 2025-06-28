@@ -401,7 +401,6 @@
         <div class="header-left">
             <div class="search-container">
                 <input type="text" id="url" class="search-input" placeholder="Enter URL or search terms">
-                <button class="search-button" id="preview" onclick="previewUrl()">PREVIEW</button>
                 <button class="search-button" onclick="navigateToUrl()">GO</button>
             </div>
         </div>
@@ -428,7 +427,6 @@
     </div>
 
     <div class="main-content">
-        <iframe src="https://bing.com/search?q=" style="flex-grow: 1; display: none" id="ifr">
         <img src="https://de-ravendell.github.io/signature.png" alt=" " width="300">
         <div id="search-result" class="search-result">
             <p>Invalid URL. Please try again.</p>
@@ -587,54 +585,6 @@
                 navigateToUrl();
             }
         });
-
-        function previewUrl() {
-            document.getElementById('preview').textContent = 'EXIT PREVIEW';
-            document.getElementById('preview').onclick = "exitUrl()";
-            let input = document.getElementById('url').value.trim();
-            const ifr = document.getElementById('ifr');
-
-            if (!input) {
-                const url = `https://www.bing.com/search?q=`;
-                ifr.style.href = url;
-                ifr.style.display = flex;
-                return;
-            }
-            
-            try {
-                if (input.startsWith('http://') || input.startsWith('https://')) {
-                    new URL(input);
-                    ifr.src = input;
-                    ifr.style.display = flex;
-                    return;
-                }
-                
-                if (domainPattern.test(input) && !input.includes(" ")) {
-                    if (!input.startsWith('http://') && !input.startsWith('https://')) {
-                        input = 'https://' + input;
-                    }
-                    new URL(input);
-                    ifr.src = input;
-                    ifr.style.display = flex;
-                    return;
-                }
-                
-                ifr.src = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
-                ifr.style.display = flex;
-                
-            } catch (e) {
-                ifr.src = `https://www.bing.com/search?q=${encodeURIComponent(input)}`;
-                ifr.style.display = flex;
-            }
-        }
-
-        function exitUrl() {
-            document.getElementById('preview').textContent = 'PREVIEW';
-            document.getElementById('preview').onclick = "previewUrl()";
-            const ifr = document.getElementById('ifr');
-            ifr.src = "https://bing.com/search?q=";
-            ifr.style.display = none;
-        }
     </script>
 </body>
 </html>
